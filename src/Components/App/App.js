@@ -22,20 +22,30 @@ class App extends Component {
     return Promise.all(peopleArray)
       .then(response => {
         return response.map((planet, i) => {
-          return Object.assign({}, { name: peopleResults[i].name }, { homeworld: planet.name, population: planet.population })
+          return Object.assign({}, { name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
         })
-      })
+    })
   }
 
-  //fetch data & set to state
+  fetchSpecies(updatedPeopleResults) {
+    const completePeopleArray = updatedPeopleResults.map(person => {
+      return fetch(person.species[0])
+        .then(response => response.json())
+    })
+    return Promise.all(completePeopleArray)
+      .then(response => {
+        return response.map((species, i) => {
+          return Object.assign( updatedPeopleResults[i], { species: species.name })
+        })
+    })
+  }
+
   getSubjectData(string) {
     fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
-      .then(parsedResponse => {
-        const homeResults = this.fetchHomeworld(parsedResponse.results)
-          .then(homeResults => )
-        console.log(homeResults)
-      })
+      .then(parsedResponse => this.fetchHomeworld(parsedResponse.results))
+      .then(results => this.fetchSpecies(results))
+      .then(results => this.setState({ peopleData: results }))
       .catch(error => console.log('error'))
   }
 
