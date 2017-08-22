@@ -8,13 +8,35 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      filmData: []
+      filmData: [],
+      peopleData: []
     }
     this.getSubjectData = this.getSubjectData.bind(this)
   }
 
+  fetchHomeworld(peopleResults) {
+    const peopleArray = peopleResults.map(person => {
+      return fetch(person.homeworld)
+        .then(response => response.json())
+    })
+    return Promise.all(peopleArray)
+      .then(response => {
+        return response.map((planet, i) => {
+          return Object.assign({}, { name: peopleResults[i].name }, { homeworld: planet.name, population: planet.population })
+        })
+      })
+  }
+
+  //fetch data & set to state
   getSubjectData(string) {
-    console.log('string: ', string)
+    fetch(`https://swapi.co/api/${string}/`)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        const homeResults = this.fetchHomeworld(parsedResponse.results)
+          .then(homeResults => )
+        console.log(homeResults)
+      })
+      .catch(error => console.log('error'))
   }
 
   componentDidMount() {
@@ -32,7 +54,6 @@ class App extends Component {
           })
       )
     })
-    console.log(filmsArray)
     return filmsArray
   }
 
