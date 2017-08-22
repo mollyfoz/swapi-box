@@ -2,12 +2,12 @@ import React from 'react'
 import './Header.css';
 import Nav from '../Nav/Nav';
 
-const Header = () => {
+const Header = ({ getSubjectData }) => {
 
   return(
     <header className='app-header'>
       <h1 className='heading'>SWAPI-BOX</h1>
-      <Nav />
+      <Nav getSubjectData={ getSubjectData }/>
     </header>
   )
 }

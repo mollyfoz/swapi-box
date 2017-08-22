@@ -10,6 +10,11 @@ class App extends Component {
     this.state = {
       filmData: []
     }
+    this.getSubjectData = this.getSubjectData.bind(this)
+  }
+
+  getSubjectData(string) {
+    console.log('string: ', string)
   }
 
   componentDidMount() {
@@ -42,7 +47,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header getSubjectData={this.getSubjectData}/>
         {
           (this.state.filmData.length >= 1) &&
           <CardContainer filmData={this.state.filmData}/>
