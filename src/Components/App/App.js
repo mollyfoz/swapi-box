@@ -27,8 +27,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className='container'>
-          <Header />
-          <CardContainer />
+
         </div>
       </div>
     );

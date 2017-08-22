@@ -5,3 +5,5 @@ const Button = () => {
     <button className='button'>{}</button>
   )
 }
+
+export default Button;
