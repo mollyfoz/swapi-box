@@ -1,23 +1,16 @@
-export default class CleanData {
-  cleanPeople() {
 
-  }
+const cleanData = (dataObject) => {
 
-  cleanFilms(object) {
-    return object.results.map(obj => {
-      return (
+  const filmsArray = dataObject.results.map( obj => {
+    return (
       { title: obj.title,
         year: obj.release_date,
-        crawl: obj.opening_crawl }
-      )
-    })
-  }
-
-  cleanPlanets() {
-
-  }
-
-  cleanVehicles() {
-
-  }
+        crawl: obj.opening_crawl,
+      }
+    )
+  })
+  console.log(filmsArray)
+  return filmsArray
 }
+
+export default cleanData

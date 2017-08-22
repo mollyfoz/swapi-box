@@ -1,0 +1,11 @@
+
+.card-container {
+  height: 100vh;
+  background-color: #ccc;
+}
+
+.container-instruction {
+  text-align: center;
+  font-size: 75px;
+
+}

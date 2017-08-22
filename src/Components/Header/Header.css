@@ -1,0 +1,14 @@
+
+.app-header {
+  height: 400px;
+  background-image: url('https://s-media-cache-ak0.pinimg.com/originals/3e/25/a3/3e25a37a493669d96a68f78ec6bae2e3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.heading {
+  text-align: center;
+  color: #fff;
+  font-size: 50px;
+}
