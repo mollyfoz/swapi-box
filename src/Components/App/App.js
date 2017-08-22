@@ -19,8 +19,8 @@ class App extends Component {
           .then(parsedResponse => {
           const parsedInfo = this.cleanData.cleanFilms(parsedResponse)
           this.setState({ newData: parsedInfo })
-        })
-        .catch(error => console.log('error')
+          })
+          .catch(error => console.log('error'))
   }
 
   render() {
