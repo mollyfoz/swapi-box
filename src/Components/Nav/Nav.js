@@ -1,11 +1,16 @@
 import React from 'react'
+import Button from '../Button/Button'
+import './Nav.css'
 
 const Nav = () => {
 
   return (
-    <nav className='navigation'>
-
-    </nav>
+    <div className='navigation'>
+      <Button />
+      <Button />
+      <Button />
+      <Button />
+    </div>
   )
 }
 

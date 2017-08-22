@@ -1,11 +1,14 @@
 import React from 'react'
+import Nav from '../Nav/Nav'
+import './Header.css'
 
 const Header = () => {
 
   return(
-    <header className='app-header'>
-
-    </header>
+    <div className='app-header'>
+      <h1 className='title'>STAR WARS</h1>
+      <Nav />
+    </div>
   )
 }
 

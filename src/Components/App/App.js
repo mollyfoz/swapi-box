@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CleanData from '../../cleaner';
-import Header from '../'
-import logo from '../../logo.svg';
+import Header from '../../Components/Header/Header';
 import './App.css';
 
 class App extends Component {
@@ -21,14 +20,13 @@ class App extends Component {
           const parsedInfo = this.cleanData.cleanFilms(parsedResponse)
           this.setState({ newData: parsedInfo })
         })
+          .catch(error => console.log('error'))
   }
 
   render() {
     return (
       <div className="App">
-        <div className='container'>
-
-        </div>
+        <Header />
       </div>
     );
   }
