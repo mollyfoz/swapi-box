@@ -1,14 +1,14 @@
 import React from 'react'
-import Nav from '../Nav/Nav'
-import './Header.css'
+import './Header.css';
+import Nav from '../Nav/Nav';
 
 const Header = () => {
 
   return(
-    <div className='app-header'>
-      <h1 className='title'>STAR WARS</h1>
+    <header className='app-header'>
+      <h1 className='heading'>SWAPI-BOX</h1>
       <Nav />
-    </div>
+    </header>
   )
 }
 
