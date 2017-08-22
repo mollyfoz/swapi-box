@@ -9,7 +9,8 @@ class App extends Component {
     super();
     this.state = {
       filmData: [],
-      peopleData: []
+      peopleData: [],
+      planetData: [],
     }
     this.getSubjectData = this.getSubjectData.bind(this)
   }
@@ -40,13 +41,52 @@ class App extends Component {
     })
   }
 
+  fetchResidents(planetResidentsArray) {
+    const planetResidents = planetResidentsArray.map( endpoint => {
+      return fetch(endpoint)
+        .then(response => response.json())
+    })
+    return Promise.all(planetResidents)
+      .then(response => {
+        return response.map( resident => {
+          return resident.name
+        })
+      })
+
+  }
+
+  fetchPlanets(planetResults) {
+    const planetArray = planetResults.map(planet => {
+      const planetResidents = this.fetchResidents(planet.residents)
+      return planetResidents
+    })
+
+    return Promise.all(planetArray)
+      .then( response => {
+        return response.map( (array, i) => {
+          return Object.assign({}, { planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
+        })
+      })
+  }
+
   getSubjectData(string) {
-    fetch(`https://swapi.co/api/${string}/`)
+    if (string === 'people') {
+      fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
       .then(parsedResponse => this.fetchHomeworld(parsedResponse.results))
       .then(results => this.fetchSpecies(results))
       .then(results => this.setState({ peopleData: results }))
       .catch(error => console.log('error'))
+
+    } else if (string === 'planets') {
+      fetch(`https://swapi.co/api/${string}/`)
+      .then(response => response.json())
+      .then(parsedResponse => this.fetchPlanets(parsedResponse.results))
+      .then(results => this.setState({ planetData: results }))
+      .catch(error => console.log('error'))
+    } else {
+
+    }
   }
 
   componentDidMount() {
