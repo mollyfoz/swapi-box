@@ -1,9 +1,15 @@
 .data-card {
-  width: 224px;
-  border: .5px solid black;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  width: 300px;
+  background-color: #fff;
+  border: 3px solid #ccc;
   margin: 5px;
-  
+}
+
+.card-info {
+  text-transform: uppercase;
+  color: #ccc;
+  font-size: 30px;
 }
