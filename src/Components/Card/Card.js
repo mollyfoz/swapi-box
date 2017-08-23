@@ -6,13 +6,13 @@ const Card = ({ subjectDataObj }) => {
   const cardKeys = Object.keys(subjectDataObj)
 
   const keyArray = cardKeys.map(key => {
-    return ( <h3 className='card-info'> {key} : {subjectDataObj[key]} </h3> )
+    return ( <h3 className='card-info'> { key }: { subjectDataObj[key] } </h3> )
   })
 
   return (
     <div className='data-card'>
       { keyArray }
-      <button className='favorite-btn'>Favorite!</button>
+      <button className='favorite-btn'>favorite</button>
     </div>
   )
 }
