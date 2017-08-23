@@ -2,7 +2,10 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background: #000;
+  background-image: url('https://cdn.pixabay.com/photo/2016/06/05/07/59/stars-1436950_1280.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 /*.card-container {
@@ -68,6 +71,7 @@
   transform-origin: 50% 100%;
 
   animation: crawl 60s linear;
+  animation-iteration-count:infinite;
 }
 
 /*.inner-container {
