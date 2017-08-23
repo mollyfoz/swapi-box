@@ -1,22 +1,35 @@
 .data-card {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   flex-direction: column;
-  width: 300px;
-  background-color: #fff;
-  border: 3px solid #ccc;
+  width: 280px;
+  height: 300px;
+  background-color: #F1F1F6;
+  border: 1.5px solid #B66260;
+  border-radius: 3%;
   margin: 5px;
+  padding: 4px;
+  overflow: scroll;
 }
 
 .card-info {
   text-transform: uppercase;
-  color: #ccc;
-  font-size: 30px;
+  color: #DB7046;
+  padding: 5px;
+  font-size: 16px;
 }
 
 .favorite-btn {
-  width: 150px;
-  background-color: #000;
-  color: #fff;
-  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ada9a9;
+  opacity: 0.9;
+  color: white;
+  font-size: 16px;
+  border: .5px solid white;
+  border-radius: 11px;
+  height: 35px;
+  width: 80px;
+  box-shadow: 5px 2px 2px black;
 }
