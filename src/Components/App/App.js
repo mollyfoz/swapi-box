@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import cleanData from '../../cleaner';
 import Header from '../Header/Header';
 import CardContainer from '../CardContainer/CardContainer';
+import OpenScroll from '../OpenScroll/OpenScroll';
 import './App.css';
 
 class App extends Component {
@@ -9,11 +9,13 @@ class App extends Component {
     super();
     this.state = {
       filmData: [],
-      people: [],
-      planets: [],
-      vehicles: [],
+      data: []
     }
     this.getSubjectData = this.getSubjectData.bind(this)
+  }
+
+  componentDidMount() {
+    this.fetchFilms('films')
   }
 
   fetchHomeworld(peopleResults) {
@@ -81,10 +83,33 @@ class App extends Component {
     })
   }
 
+  fetchFilms(subject) {
+    fetch(`https://swapi.co/api/${subject}/`)
+      .then(response => response.json())
+      .then(parsedResponse => this.cleanFilmData(parsedResponse))
+      .then(filmsArray => this.setState({ filmData: filmsArray }))
+      .catch(error => console.log('error'))
+  }
+
+  cleanFilmData(dataObject) {
+    const filmsArray = dataObject.results.map( obj => {
+      return (
+        Object.assign({},
+          {
+            title: obj.title,
+            year: obj.release_date,
+            crawl: obj.opening_crawl,
+          })
+        )
+      })
+      return filmsArray
+  }
+
   getSubjectData(string) {
     fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
       .then(parsedResponse => {
+        console.log('#1:')
         if (string === 'people') {
           return this.fetchHomeworld(parsedResponse.results)
         } else if (string === 'planets') {
@@ -94,50 +119,35 @@ class App extends Component {
         }
       })
       .then(results => {
+        console.log('#2:')
         if (string === 'people') {
           return this.fetchSpecies(results)
         } else {
           return results
         }
       })
-      .then(results => this.setState({ [string]: results }))
-      .catch(error => console.log('error'))
-  }
-
-  componentDidMount() {
-    this.fetchData('films')
-  }
-
-  cleanData(dataObject) {
-    const filmsArray = dataObject.results.map( obj => {
-      return (
-        Object.assign({},
-          {
-            title: obj.title,
-            year: obj.release_date,
-            crawl: obj.opening_crawl,
-          })
-      )
-    })
-    return filmsArray
-  }
-
-  fetchData(subject) {
-    fetch(`https://swapi.co/api/${subject}/`)
-      .then(response => response.json())
-      .then(parsedResponse => this.cleanData(parsedResponse))
-      .then(filmsArray => this.setState({ filmData: filmsArray }))
+      .then(results => {
+        console.log('results: ', results);
+        this.setState({ data: results }, () => { console.log(this.state.data)
+        return results })
+      })
       .catch(error => console.log('error'))
   }
 
   render() {
+
+    const renderSubject = () => {
+      if (this.state.data.length >= 1) {
+        return <CardContainer stateData={this.state.data} />
+      } else if (this.state.filmData.length >= 1) {
+        return <OpenScroll filmData={this.state.filmData} />
+      }
+    }
+
     return (
       <div className="App">
         <Header getSubjectData={this.getSubjectData}/>
-        {
-          (this.state.filmData.length >= 1) &&
-          <CardContainer filmData={this.state.filmData}/>
-        }
+        { renderSubject() }
       </div>
     );
   }
