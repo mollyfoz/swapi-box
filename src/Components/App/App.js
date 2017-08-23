@@ -135,6 +135,9 @@ class App extends Component {
   }
 
   getSubjectData(string) {
+    if (string === 'films') {
+      this.setState({ buttonClicked: 'subjectData', data: this.state.filmData })
+    } else {
     fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
       .then(parsedResponse => {
@@ -155,6 +158,7 @@ class App extends Component {
       })
       .then(results => this.setState({ buttonClicked: 'subjectData', data: results}))
       .catch(error => console.log(error))
+    }
   }
 
   render() {
