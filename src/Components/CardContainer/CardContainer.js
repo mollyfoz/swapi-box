@@ -4,13 +4,17 @@ import './CardContainer.css';
 
 const CardContainer = ({ stateData }) => {
 
-  const subjectCards = stateData.map(obj => {
-    return <Card subjectData={obj} />
-  })
+  const subjectCards = () => {
+    if (stateData.data.length > 0) {
+      return stateData.data.map(obj => {
+        return <Card subjectDataObj={obj} />
+      })
+    }
+  }
 
   return (
     <div className='card-container'>
-      { subjectCards }
+      { subjectCards() }
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import CardContainer from '../CardContainer/CardContainer';
 import OpenScroll from '../OpenScroll/OpenScroll';
@@ -8,6 +9,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      buttonClicked: false,
       filmData: [],
       data: []
     }
@@ -55,7 +57,6 @@ class App extends Component {
           return resident.name
         })
       })
-
   }
 
   fetchPlanets(planetResults) {
@@ -88,7 +89,7 @@ class App extends Component {
       .then(response => response.json())
       .then(parsedResponse => this.cleanFilmData(parsedResponse))
       .then(filmsArray => this.setState({ filmData: filmsArray }))
-      .catch(error => console.log('error'))
+      .catch(error => console.log(error))
   }
 
   cleanFilmData(dataObject) {
@@ -109,7 +110,6 @@ class App extends Component {
     fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
       .then(parsedResponse => {
-        console.log('#1:')
         if (string === 'people') {
           return this.fetchHomeworld(parsedResponse.results)
         } else if (string === 'planets') {
@@ -119,35 +119,29 @@ class App extends Component {
         }
       })
       .then(results => {
-        console.log('#2:')
         if (string === 'people') {
           return this.fetchSpecies(results)
         } else {
           return results
         }
       })
-      .then(results => {
-        console.log('results: ', results);
-        this.setState({ data: results }, () => { console.log(this.state.data)
-        return results })
-      })
-      .catch(error => console.log('error'))
+      .then(results => this.setState({ buttonClicked: true, data: results}))
+      .catch(error => console.log(error))
   }
 
   render() {
 
-    const renderSubject = () => {
-      if (this.state.data.length >= 1) {
-        return <CardContainer stateData={this.state.data} />
-      } else if (this.state.filmData.length >= 1) {
+    const renderOpenScroll = () => {
+      if ((this.state.filmData.length > 0) && (!this.state.buttonClicked)) {
         return <OpenScroll filmData={this.state.filmData} />
       }
     }
 
     return (
       <div className="App">
-        <Header getSubjectData={this.getSubjectData}/>
-        { renderSubject() }
+        <Header getSubjectData={this.getSubjectData} />
+        <CardContainer stateData={this.state} />
+        { renderOpenScroll() }
       </div>
     );
   }
