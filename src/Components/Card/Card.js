@@ -1,17 +1,17 @@
 import React from 'react'
 import './Card.css'
 
-const Card = () => {
+const Card = ({ obj }) => {
+
+  const cardKeys = Object.keys(obj)
+
+  const keyArray = cardKeys.map(key => {
+    return ( <h3> {key} : {obj[key]} </h3> )
+  })
 
   return (
     <div className='data-card'>
-      <h2>Title</h2>
-        <div className='info-container'>
-          <p>Key: Value</p>
-          <p>Key: Value</p>
-          <p>Key: Value</p>
-          <p>Key: Value</p>    
-        </div>
+      { keyArray }
     </div>
   )
 }
