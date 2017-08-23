@@ -7,6 +7,7 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.11",
+    "react-test-renderer": "^15.6.1",
     "watchman": "^0.1.8"
   },
   "scripts": {

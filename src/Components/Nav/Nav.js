@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../Button/Button'
 import './Nav.css'
 
-const Nav = ({ getSubjectData, count }) => {
+const Nav = ({ getSubjectData, count, displayFavorites }) => {
 
   const navBtnsArray = ['films', 'people', 'planets', 'vehicles']
   const mappedBtns = navBtnsArray.map((string, i) => {
@@ -15,7 +15,11 @@ const Nav = ({ getSubjectData, count }) => {
   return (
     <div className='navigation'>
       { mappedBtns }
-      <button className='all-favorites-btn'>favorites <span className='favorites-count'>{ count }</span> </button>
+      <button onClick={ () => displayFavorites() }
+              className='all-favorites-btn'>
+              favorites
+              <span className='favorites-count'>{ count }</span>
+      </button>
     </div>
   )
 }

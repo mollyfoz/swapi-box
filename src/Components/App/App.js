@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Header from '../Header/Header';
 import CardContainer from '../CardContainer/CardContainer';
 import OpenScroll from '../OpenScroll/OpenScroll';
+import Favorites from '../Favorites/Favorites';
 import './App.css';
 
 class App extends Component {
@@ -11,12 +12,13 @@ class App extends Component {
     this.state = {
       favoritesCount: 0,
       favoritesArray: [],
-      buttonClicked: false,
+      buttonClicked: 'openScroll',
       filmData: [],
       data: []
     }
     this.getSubjectData = this.getSubjectData.bind(this)
     this.addFavorite = this.addFavorite.bind(this)
+    this.displayFavorites = this.displayFavorites.bind(this)
   }
 
   componentDidMount() {
@@ -30,6 +32,10 @@ class App extends Component {
       favoritesCount: newFavoritesArray.length,
       favoritesArray: newFavoritesArray
     })
+  }
+
+  displayFavorites() {
+    this.setState({ buttonClicked: 'favorites' })
   }
 
   idGenerator() {
@@ -147,27 +153,42 @@ class App extends Component {
           return results
         }
       })
-      .then(results => this.setState({ buttonClicked: true, data: results}))
+      .then(results => this.setState({ buttonClicked: 'subjectData', data: results}))
       .catch(error => console.log(error))
   }
 
   render() {
 
-    const { filmData, buttonClicked, data, favoritesCount } = this.state
+    const { filmData, buttonClicked, data, favoritesCount, favoritesArray } = this.state
 
     const renderOpenScroll = () => {
-      if ((filmData.length > 0) && (!buttonClicked)) {
+      if ((filmData.length > 0) && (buttonClicked === 'openScroll' )) {
         return <OpenScroll filmData={filmData} />
+      }
+    }
+
+    const renderFavorites = () => {
+      if (buttonClicked === 'favorites') {
+        return <Favorites favoritesArray={favoritesArray} addFavorite={this.addFavorite} />
+      }
+    }
+
+    const renderSubjectData = () => {
+      if (buttonClicked === 'subjectData') {
+        return <CardContainer stateData={data} addFavorite={this.addFavorite} />
       }
     }
 
     return (
       <div className="App">
         <Header
-          getSubjectData={this.getSubjectData} count={favoritesCount}
+          getSubjectData={this.getSubjectData}
+          count={favoritesCount}
+          displayFavorites={this.displayFavorites}
         />
-      <CardContainer stateData={data} addFavorite={this.addFavorite} />
+        { renderSubjectData() }
         { renderOpenScroll() }
+        { renderFavorites() }
       </div>
     );
   }
