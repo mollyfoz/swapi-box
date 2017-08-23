@@ -11,6 +11,7 @@ class App extends Component {
       filmData: [],
       peopleData: [],
       planetData: [],
+      vehicleData: [],
     }
     this.getSubjectData = this.getSubjectData.bind(this)
   }
@@ -69,6 +70,17 @@ class App extends Component {
       })
   }
 
+  fetchVehicles(vehiclesArray) {
+    return vehiclesArray.map( vehicle => {
+      return Object.assign({},
+        { vehicle: vehicle.name,
+          model: vehicle.model,
+          class: vehicle.vehicle_class,
+          passengers: vehicle.passengers
+        })
+    })
+  }
+
   getSubjectData(string) {
     if (string === 'people') {
       fetch(`https://swapi.co/api/${string}/`)
@@ -85,7 +97,11 @@ class App extends Component {
       .then(results => this.setState({ planetData: results }))
       .catch(error => console.log('error'))
     } else {
-
+      fetch(`https://swapi.co/api/${string}/`)
+      .then(response => response.json())
+      .then(parsedResponse => this.fetchVehicles(parsedResponse.results))
+      .then(results => this.setState({ vehicleData: results }))
+      .catch(error => console.log('error'))
     }
   }
 
