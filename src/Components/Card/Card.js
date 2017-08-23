@@ -10,7 +10,7 @@ const Card = ({ subjectDataObj, addFavorite }) => {
   const filteredArray = cardKeys.filter( key => key !== 'id' )
 
   const keyArray = filteredArray.map(key => {
-    return ( <h3 className='card-info'> { key }: { subjectDataObj[key] } </h3> )
+    return ( <h3 key={ key } className='card-info'> { key }: { subjectDataObj[key] } </h3> )
   })
 
   return (

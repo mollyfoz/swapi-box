@@ -8,6 +8,7 @@ const CardContainer = ({ stateData, addFavorite }) => {
     if (stateData.length > 0) {
       return stateData.map(obj => {
         return <Card
+                  key={obj.id}
                   subjectDataObj={obj}
                   addFavorite={addFavorite}
                 />
