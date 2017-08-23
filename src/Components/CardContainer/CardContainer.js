@@ -2,12 +2,15 @@ import React from 'react'
 import Card from '../Card/Card'
 import './CardContainer.css';
 
-const CardContainer = ({ stateData }) => {
+const CardContainer = ({ stateData, addFavorite }) => {
 
   const subjectCards = () => {
-    if (stateData.data.length > 0) {
-      return stateData.data.map(obj => {
-        return <Card subjectDataObj={obj} />
+    if (stateData.length > 0) {
+      return stateData.map(obj => {
+        return <Card
+                  subjectDataObj={obj}
+                  addFavorite={addFavorite}
+                />
       })
     }
   }

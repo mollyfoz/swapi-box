@@ -9,15 +9,34 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      favoritesCount: 0,
+      favoritesArray: [],
       buttonClicked: false,
       filmData: [],
       data: []
     }
     this.getSubjectData = this.getSubjectData.bind(this)
+    this.addFavorite = this.addFavorite.bind(this)
   }
 
   componentDidMount() {
     this.fetchFilms('films')
+  }
+
+  addFavorite(id) {
+    const favoriteCard = this.state.data.filter( object => object.id === id )
+    const newFavoritesArray = [...this.state.favoritesArray, ...favoriteCard]
+    this.setState({
+      favoritesCount: newFavoritesArray.length,
+      favoritesArray: newFavoritesArray
+    })
+  }
+
+  idGenerator() {
+    let S4 = () => {
+       return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
+    }
+    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4())
   }
 
   fetchHomeworld(peopleResults) {
@@ -28,7 +47,7 @@ class App extends Component {
     return Promise.all(peopleArray)
       .then(response => {
         return response.map((planet, i) => {
-          return Object.assign({}, { name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
+          return Object.assign({}, { id: this.idGenerator(), name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
         })
     })
   }
@@ -68,7 +87,7 @@ class App extends Component {
     return Promise.all(planetArray)
       .then( response => {
         return response.map( (array, i) => {
-          return Object.assign({}, { planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
+          return Object.assign({}, { id: this.idGenerator(), planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
         })
       })
   }
@@ -76,7 +95,9 @@ class App extends Component {
   fetchVehicles(vehiclesArray) {
     return vehiclesArray.map( vehicle => {
       return Object.assign({},
-        { vehicle: vehicle.name,
+        {
+          id: this.idGenerator(),
+          vehicle: vehicle.name,
           model: vehicle.model,
           class: vehicle.vehicle_class,
           passengers: vehicle.passengers
@@ -97,6 +118,7 @@ class App extends Component {
       return (
         Object.assign({},
           {
+            id: this.idGenerator(),
             title: obj.title,
             year: obj.release_date,
             crawl: obj.opening_crawl,
@@ -131,16 +153,20 @@ class App extends Component {
 
   render() {
 
+    const { filmData, buttonClicked, data, favoritesCount } = this.state
+
     const renderOpenScroll = () => {
-      if ((this.state.filmData.length > 0) && (!this.state.buttonClicked)) {
-        return <OpenScroll filmData={this.state.filmData} />
+      if ((filmData.length > 0) && (!buttonClicked)) {
+        return <OpenScroll filmData={filmData} />
       }
     }
 
     return (
       <div className="App">
-        <Header getSubjectData={this.getSubjectData} />
-        <CardContainer stateData={this.state} />
+        <Header
+          getSubjectData={this.getSubjectData} count={favoritesCount}
+        />
+      <CardContainer stateData={data} addFavorite={this.addFavorite} />
         { renderOpenScroll() }
       </div>
     );

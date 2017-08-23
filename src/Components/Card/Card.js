@@ -1,18 +1,22 @@
 import React from 'react'
 import './Card.css'
 
-const Card = ({ subjectDataObj }) => {
+const Card = ({ subjectDataObj, addFavorite }) => {
+
+  const cardId = subjectDataObj.id
 
   const cardKeys = Object.keys(subjectDataObj)
 
-  const keyArray = cardKeys.map(key => {
+  const filteredArray = cardKeys.filter( key => key !== 'id' )
+
+  const keyArray = filteredArray.map(key => {
     return ( <h3 className='card-info'> { key }: { subjectDataObj[key] } </h3> )
   })
 
   return (
     <div className='data-card'>
       { keyArray }
-      <button className='favorite-btn'>favorite</button>
+      <button className='favorite-btn' onClick={ () => addFavorite(cardId) }>favorite</button>
     </div>
   )
 }
