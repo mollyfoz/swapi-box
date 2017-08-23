@@ -18,7 +18,7 @@ class App extends Component {
       data: []
     }
     this.getSubjectData = this.getSubjectData.bind(this)
-    this.addFavorite = this.addFavorite.bind(this)
+    this.toggleFavorite = this.toggleFavorite.bind(this)
     this.displayFavorites = this.displayFavorites.bind(this)
   }
 
@@ -26,8 +26,40 @@ class App extends Component {
     this.fetchFilms('films')
   }
 
-  addFavorite(id) {
+  toggleFavorite(id) {
     const favoriteCard = this.state.data.filter( object => object.id === id )
+    const findCard = this.state.favoritesArray.filter( object => object.id === id)
+
+    if (favoriteCard.length === 1 && findCard.length === 1) {
+      const toggledObj = Object.assign(favoriteCard[0], { starred: !favoriteCard[0].starred })
+
+      // swap the toggledobj with the previous obj in the data array
+      // set the two to state
+
+      const index = this.state.favoritesArray.indexOf(toggledObj)
+      const splicedFavorites = this.state.favoritesArray.splice(index, 1)
+      console.log('favoritesArray ', this.state.favoritesArray);
+      console.log('spliced ', splicedFavorites);
+
+
+
+
+      return
+    }
+
+    if (favoriteCard.length === 1) {
+      const toggledObj = Object.assign(favoriteCard[0], { starred: !favoriteCard[0].starred })
+
+      console.log('toggledObj ', toggledObj)
+    }
+
+    if (findCard.length === 1) {
+      const toggledObj2 = Object.assign(favoriteCard[0], { starred: !favoriteCard[0].starred })
+
+      console.log('toggledObj2 ', toggledObj2)
+    }
+
+
     const newFavoritesArray = [...this.state.favoritesArray, ...favoriteCard]
     this.setState({
       favoritesCount: newFavoritesArray.length,
@@ -54,7 +86,7 @@ class App extends Component {
     return Promise.all(peopleArray)
       .then(response => {
         return response.map((planet, i) => {
-          return Object.assign({}, { id: this.idGenerator(), name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
+          return Object.assign({}, { id: this.idGenerator(), starred: false, name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
         })
     })
   }
@@ -94,7 +126,7 @@ class App extends Component {
     return Promise.all(planetArray)
       .then( response => {
         return response.map( (array, i) => {
-          return Object.assign({}, { id: this.idGenerator(), planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
+          return Object.assign({}, { id: this.idGenerator(), starred: false, planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
         })
       })
   }
@@ -104,6 +136,7 @@ class App extends Component {
       return Object.assign({},
         {
           id: this.idGenerator(),
+          starred: false,
           vehicle: vehicle.name,
           model: vehicle.model,
           class: vehicle.vehicle_class,
@@ -126,6 +159,7 @@ class App extends Component {
         Object.assign({},
           {
             id: this.idGenerator(),
+            starred: false,
             title: obj.title,
             year: obj.release_date,
             crawl: obj.opening_crawl,
@@ -165,6 +199,8 @@ class App extends Component {
     })
   }
 
+  // remember to compare the favoritesArray with the results from line 189 before setting to state.
+
   render() {
 
     const { filmData, buttonClicked, data, favoritesCount, favoritesArray } = this.state
@@ -183,13 +219,13 @@ class App extends Component {
 
     const renderFavorites = () => {
       if (buttonClicked === 'favorites') {
-        return <Favorites favoritesArray={favoritesArray} addFavorite={this.addFavorite} />
+        return <Favorites favoritesArray={favoritesArray} toggleFavorite={this.toggleFavorite} />
       }
     }
 
     const renderSubjectData = () => {
       if (buttonClicked === 'subjectData') {
-        return <CardContainer stateData={data} addFavorite={this.addFavorite} />
+        return <CardContainer stateData={data} toggleFavorite={this.toggleFavorite} />
       }
     }
 
