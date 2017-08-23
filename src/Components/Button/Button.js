@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Button.css'
 
 const Button = ({ subject, getSubjectData }) => {
@@ -8,6 +9,11 @@ const Button = ({ subject, getSubjectData }) => {
     { subject }
     </button>
   )
+}
+
+Button.propTypes = {
+  subject: PropTypes.string,
+  getSubjectData: PropTypes.func
 }
 
 export default Button;

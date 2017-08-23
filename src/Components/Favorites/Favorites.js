@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Card from '../Card/Card'
 import './Favorites.css';
 
@@ -23,6 +24,11 @@ const Favorites = ({ favoritesArray, addFavorite }) => {
       { favoritedCards() }
     </div>
   )
+}
+
+Favorites.propTypes = {
+  favoritesArray: PropTypes.array,
+  addFavorite: PropTypes.func
 }
 
 export default Favorites;

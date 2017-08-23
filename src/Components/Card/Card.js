@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './Card.css'
 
 const Card = ({ subjectDataObj, addFavorite }) => {
@@ -19,6 +20,11 @@ const Card = ({ subjectDataObj, addFavorite }) => {
       <button className='favorite-btn' onClick={ () => addFavorite(cardId) }>favorite</button>
     </div>
   )
+}
+
+Card.propTypes = {
+  subjectDataObj: PropTypes.object,
+  addFavorite: PropTypes.func
 }
 
 export default Card;
