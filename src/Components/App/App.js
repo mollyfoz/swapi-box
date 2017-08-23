@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../Header/Header';
+import Loading from '../Loading/Loading';
 import CardContainer from '../CardContainer/CardContainer';
 import OpenScroll from '../OpenScroll/OpenScroll';
 import Favorites from '../Favorites/Favorites';
@@ -24,10 +25,6 @@ class App extends Component {
   componentDidMount() {
     this.fetchFilms('films')
   }
-
-  // componentWillUpdate(nextProps, nextState) {
-  //   if (!nextState)
-  // }
 
   addFavorite(id) {
     const favoriteCard = this.state.data.filter( object => object.id === id )
@@ -139,30 +136,33 @@ class App extends Component {
   }
 
   getSubjectData(string) {
-    if (string === 'films') {
-      this.setState({ buttonClicked: 'subjectData', data: this.state.filmData })
-    } else {
-    fetch(`https://swapi.co/api/${string}/`)
-      .then(response => response.json())
-      .then(parsedResponse => {
-        if (string === 'people') {
-          return this.fetchHomeworld(parsedResponse.results)
-        } else if (string === 'planets') {
-          return this.fetchPlanets(parsedResponse.results)
-        } else {
-          return this.fetchVehicles(parsedResponse.results)
-        }
-      })
-      .then(results => {
-        if (string === 'people') {
-          return this.fetchSpecies(results)
-        } else {
-          return results
-        }
-      })
-      .then(results => this.setState({ buttonClicked: 'subjectData', data: results}))
-      .catch(error => console.log(error))
-    }
+
+    this.setState({ buttonClicked: 'loading'}, () => {
+      if (string === 'films') {
+        this.setState({ buttonClicked: 'subjectData', data: this.state.filmData })
+      } else {
+        fetch(`https://swapi.co/api/${string}/`)
+        .then(response => response.json())
+        .then(parsedResponse => {
+          if (string === 'people') {
+            return this.fetchHomeworld(parsedResponse.results)
+          } else if (string === 'planets') {
+            return this.fetchPlanets(parsedResponse.results)
+          } else {
+            return this.fetchVehicles(parsedResponse.results)
+          }
+        })
+        .then(results => {
+          if (string === 'people') {
+            return this.fetchSpecies(results)
+          } else {
+            return results
+          }
+        })
+        .then(results => this.setState({ buttonClicked: 'subjectData', data: results}))
+        .catch(error => console.log(error))
+      }
+    })
   }
 
   render() {
@@ -172,6 +172,12 @@ class App extends Component {
     const renderOpenScroll = () => {
       if ((filmData.length > 0) && (buttonClicked === 'openScroll' )) {
         return <OpenScroll filmData={filmData} />
+      }
+    }
+
+    const renderLoading = () => {
+      if (buttonClicked === 'loading') {
+        return <Loading />
       }
     }
 
@@ -196,6 +202,7 @@ class App extends Component {
         />
         { renderSubjectData() }
         { renderOpenScroll() }
+        { renderLoading() }
         { renderFavorites() }
       </div>
     );
