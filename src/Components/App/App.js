@@ -9,9 +9,9 @@ class App extends Component {
     super();
     this.state = {
       filmData: [],
-      peopleData: [],
-      planetData: [],
-      vehicleData: [],
+      people: [],
+      planets: [],
+      vehicles: [],
     }
     this.getSubjectData = this.getSubjectData.bind(this)
   }
@@ -82,27 +82,26 @@ class App extends Component {
   }
 
   getSubjectData(string) {
-    if (string === 'people') {
-      fetch(`https://swapi.co/api/${string}/`)
+    fetch(`https://swapi.co/api/${string}/`)
       .then(response => response.json())
-      .then(parsedResponse => this.fetchHomeworld(parsedResponse.results))
-      .then(results => this.fetchSpecies(results))
-      .then(results => this.setState({ peopleData: results }))
+      .then(parsedResponse => {
+        if (string === 'people') {
+          return this.fetchHomeworld(parsedResponse.results)
+        } else if (string === 'planets') {
+          return this.fetchPlanets(parsedResponse.results)
+        } else {
+          return this.fetchVehicles(parsedResponse.results)
+        }
+      })
+      .then(results => {
+        if (string === 'people') {
+          return this.fetchSpecies(results)
+        } else {
+          return results
+        }
+      })
+      .then(results => this.setState({ [string]: results }))
       .catch(error => console.log('error'))
-
-    } else if (string === 'planets') {
-      fetch(`https://swapi.co/api/${string}/`)
-      .then(response => response.json())
-      .then(parsedResponse => this.fetchPlanets(parsedResponse.results))
-      .then(results => this.setState({ planetData: results }))
-      .catch(error => console.log('error'))
-    } else {
-      fetch(`https://swapi.co/api/${string}/`)
-      .then(response => response.json())
-      .then(parsedResponse => this.fetchVehicles(parsedResponse.results))
-      .then(results => this.setState({ vehicleData: results }))
-      .catch(error => console.log('error'))
-    }
   }
 
   componentDidMount() {
