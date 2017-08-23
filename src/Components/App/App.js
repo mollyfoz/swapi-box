@@ -25,6 +25,10 @@ class App extends Component {
     this.fetchFilms('films')
   }
 
+  // componentWillUpdate(nextProps, nextState) {
+  //   if (!nextState)
+  // }
+
   addFavorite(id) {
     const favoriteCard = this.state.data.filter( object => object.id === id )
     const newFavoritesArray = [...this.state.favoritesArray, ...favoriteCard]
@@ -197,5 +201,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

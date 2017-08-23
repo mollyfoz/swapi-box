@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 import './Nav.css'
 
@@ -22,6 +23,12 @@ const Nav = ({ getSubjectData, count, displayFavorites }) => {
       </button>
     </div>
   )
+}
+
+Nav.propTypes = {
+  getSubjectData: PropTypes.func,
+  count: PropTypes.number,
+  displayFavorites: PropTypes.func
 }
 
 export default Nav;

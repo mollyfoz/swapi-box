@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import './OpenScroll.css';
 
 const OpenScroll = ({ filmData }) => {
@@ -17,8 +18,15 @@ const OpenScroll = ({ filmData }) => {
           <p className='crawl-text'>{randomFilmObj.crawl}</p>
         </div>
       </div>
+      <audio className='opening-audio' autoPlay>
+           <source src='http://www.thesoundarchive.com/starwars/star-wars-theme-song.mp3' autoPlay/>
+         </audio>
     </div>
   )
+}
+
+OpenScroll.propTypes = {
+  filmData: PropTypes.array
 }
 
 export default OpenScroll

@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from '../Card/Card'
+import PropTypes from 'prop-types'
 import './CardContainer.css';
 
 const CardContainer = ({ stateData, addFavorite }) => {
@@ -21,6 +22,11 @@ const CardContainer = ({ stateData, addFavorite }) => {
       { subjectCards() }
     </div>
   )
+}
+
+CardContainer.propTypes = {
+  stateData: PropTypes.array,
+  addFavorite: PropTypes.func
 }
 
 export default CardContainer
