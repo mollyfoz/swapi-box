@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Card from '../Card/Card'
 import './Favorites.css';
 
-const Favorites = ({ favoritesArray, addFavorite }) => {
+const Favorites = ({ favoritesArray, toggleFavorite }) => {
 
   const favoritedCards = () => {
     if (favoritesArray.length > 0) {
@@ -11,7 +11,7 @@ const Favorites = ({ favoritesArray, addFavorite }) => {
         return <Card
                   key={obj.id}
                   subjectDataObj={obj}
-                  addFavorite={addFavorite}
+                  toggleFavorite={toggleFavorite}
                 />
       })
     } else {
@@ -28,7 +28,7 @@ const Favorites = ({ favoritesArray, addFavorite }) => {
 
 Favorites.propTypes = {
   favoritesArray: PropTypes.array,
-  addFavorite: PropTypes.func
+  toggleFavorite: PropTypes.func
 }
 
 export default Favorites;
