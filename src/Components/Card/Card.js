@@ -12,6 +12,7 @@ const Card = ({ subjectDataObj }) => {
   return (
     <div className='data-card'>
       { keyArray }
+      <button className='favorite-btn'>Favorite!</button>
     </div>
   )
 }

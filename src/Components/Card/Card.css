@@ -13,3 +13,10 @@
   color: #ccc;
   font-size: 30px;
 }
+
+.favorite-btn {
+  width: 150px;
+  background-color: #000;
+  color: #fff;
+  font-size: 25px;
+}
