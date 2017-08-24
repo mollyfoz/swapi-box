@@ -4,7 +4,6 @@ import './Card.css'
 
 const Card = ({ subjectDataObj, toggleFavorite }) => {
 
-  console.log(subjectDataObj)
   const cardId = subjectDataObj.id
   const starredStatus = subjectDataObj.starred ? 'favorite-btn starred' : 'favorite-btn'
 
