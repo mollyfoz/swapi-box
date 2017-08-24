@@ -15,7 +15,9 @@ const Card = ({ subjectDataObj, toggleFavorite }) => {
 
   return (
     <div className='data-card'>
-      { keyArray }
+      <div className='subject-info'>
+        { keyArray }
+      </div>
       <button
         className={ starredStatus }
         onClick={ () => toggleFavorite(cardId) }

@@ -9,7 +9,7 @@
   border-radius: 3%;
   margin: 5px;
   padding: 4px;
-  overflow: scroll;
+  /*overflow: scroll;*/
 }
 
 .card-info {
@@ -18,6 +18,15 @@
   padding: 5px;
   font-size: 16px;
 }
+
+.subject-info {
+  overflow: scroll;
+  height: 260px;
+  width: 280px;
+  margin: 3px;
+  padding-right: 10px;
+}
+
 
 .favorite-btn {
   display: flex;
@@ -31,8 +40,9 @@
   border-radius: 11px;
   height: 30px;
   width: 80px;
-  box-shadow: 5px 2px 2px black;
+  box-shadow: 3px 1px 1px black;
   cursor: pointer;
+  outline: none;
 }
 
 .favorite-btn:hover {

@@ -10,8 +10,9 @@
   border-radius: 11px;
   height: 30px;
   width: 100px;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 3px 1px 1px black;
   cursor: pointer;
+  outline: none;
 }
 
 .subject-btn:hover {
