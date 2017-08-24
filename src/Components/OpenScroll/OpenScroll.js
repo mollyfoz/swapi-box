@@ -18,7 +18,9 @@ const OpenScroll = ({ filmData }) => {
           <p className='crawl-text'>{randomFilmObj.crawl}</p>
         </div>
       </div>
-
+      <audio className='opening-audio' autoPlay>
+        <source src='http://www.thesoundarchive.com/starwars/star-wars-theme-song.mp3' autoPlay/>
+      </audio>
     </div>
   )
 }
@@ -28,7 +30,3 @@ OpenScroll.propTypes = {
 }
 
 export default OpenScroll
-
-// <audio className='opening-audio' autoPlay>
-//      <source src='http://www.thesoundarchive.com/starwars/star-wars-theme-song.mp3' autoPlay/>
-//    </audio>

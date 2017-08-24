@@ -6,7 +6,7 @@ describe('Button component', () => {
   let wrapper;
 
    beforeEach(() => {
-     wrapper = mount(<Button  />)
+     wrapper = mount(<Button />)
    })
 
    test('Button should exist', () => {
