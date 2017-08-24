@@ -21,3 +21,7 @@
   height: 31px;
   width: 101px;
 }
+
+.active-btn {
+  border: 3px solid chartreuse;
+}
