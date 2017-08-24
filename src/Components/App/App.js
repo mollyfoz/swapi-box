@@ -34,7 +34,6 @@ class App extends Component {
 
     if (stateDataItem.length === 1 && favesDataItem.length === 1) {
 
-      console.log('both arrays length 1');
       const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
 
       // do I need to get the index of the object originally in favesArray for favesIndex const??
@@ -56,7 +55,6 @@ class App extends Component {
     // if the object exists in just the favoritesArray, but not data
 
     if (favesDataItem.length === 1) {
-      console.log('faves only');
       const toggledObj = Object.assign(favesDataItem[0], { starred: !favesDataItem[0].starred })
 
       const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
@@ -71,7 +69,6 @@ class App extends Component {
     // if the object exists in just the data array and not favorites, meaning it needs to be added to the favorites array
 
     if (stateDataItem.length === 1) {
-      console.log('state data only');
       const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
 
       const newFavoritesArray = [...this.state.favoritesArray, toggledObj]
@@ -186,12 +183,32 @@ class App extends Component {
       return filmsArray
   }
 
+  mutateFavoritedData(dataArray) {
+    // array of objects passed in, and check if any objects ids in that array match with the objects ids in favorites array, if they do, then change the starred status to true
+    // this is still in progress
+    if (this.state.favoritesArray.length > 0) {
+      const favesIds = this.state.favoritesArray.map( object => object.id)
+      const newArray = dataArray.filter( object => {
+        let matchedId = favesIds.filter( id => id === object.id )
+        if ( matchedId.length === 1) {
+          return object
+        }
+      console.log('newArray', newArray);
+      })
+    } else {
+      return dataArray
+    }
+  }
+
   getSubjectData(string) {
 
     this.setState({ buttonClicked: 'loading'}, () => {
       if (string === 'films') {
+        // this.mutateFavoritedData()
         this.setState({ buttonClicked: 'subjectData', data: this.state.filmData })
+
       } else {
+
         fetch(`https://swapi.co/api/${string}/`)
         .then(response => response.json())
         .then(parsedResponse => {
@@ -210,13 +227,16 @@ class App extends Component {
             return results
           }
         })
-        .then(results => this.setState({ buttonClicked: 'subjectData', data: results}))
+        .then(results => {
+          this.mutateFavoritedData(results)
+          this.setState({ buttonClicked: 'subjectData', data: results})
+        })
         .catch(error => console.log(error))
       }
     })
   }
 
-  // remember to compare the favoritesArray with the results from line 189 before setting to state.
+  // remember to compare the favoritesArray with the results from line 213 before setting to state.
 
   render() {
 

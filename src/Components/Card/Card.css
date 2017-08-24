@@ -33,3 +33,7 @@
   width: 80px;
   box-shadow: 5px 2px 2px black;
 }
+
+.starred {
+  border: 5px solid chartreuse;
+}
