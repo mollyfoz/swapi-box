@@ -85,13 +85,6 @@ class App extends Component {
     this.setState({ buttonClicked: 'favorites' })
   }
 
-  idGenerator() {
-    let S4 = () => {
-       return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
-    }
-    return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4())
-  }
-
   fetchHomeworld(peopleResults) {
     const peopleArray = peopleResults.map(person => {
       return fetch(person.homeworld)
@@ -100,7 +93,7 @@ class App extends Component {
     return Promise.all(peopleArray)
       .then(response => {
         return response.map((planet, i) => {
-          return Object.assign({}, { id: this.idGenerator(), starred: false, name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
+          return Object.assign({}, { id: peopleResults[i].name, starred: false, name: peopleResults[i].name, species: peopleResults[i].species }, { homeworld: planet.name, population: planet.population })
         })
     })
   }
@@ -140,7 +133,7 @@ class App extends Component {
     return Promise.all(planetArray)
       .then( response => {
         return response.map( (array, i) => {
-          return Object.assign({}, { id: this.idGenerator(), starred: false, planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
+          return Object.assign({}, { id: planetResults[i].name, starred: false, planet: planetResults[i].name, terrain: planetResults[i].terrain, population: planetResults[i].population, climate: planetResults[i].climate }, { residents: array })
         })
       })
   }
@@ -149,7 +142,7 @@ class App extends Component {
     return vehiclesArray.map( vehicle => {
       return Object.assign({},
         {
-          id: this.idGenerator(),
+          id: vehicle.name,
           starred: false,
           vehicle: vehicle.name,
           model: vehicle.model,
@@ -172,7 +165,7 @@ class App extends Component {
       return (
         Object.assign({},
           {
-            id: this.idGenerator(),
+            id: obj.title,
             starred: false,
             title: obj.title,
             year: obj.release_date,
@@ -184,17 +177,18 @@ class App extends Component {
   }
 
   mutateFavoritedData(dataArray) {
-    // array of objects passed in, and check if any objects ids in that array match with the objects ids in favorites array, if they do, then change the starred status to true
-    // this is still in progress
     if (this.state.favoritesArray.length > 0) {
       const favesIds = this.state.favoritesArray.map( object => object.id)
-      const newArray = dataArray.filter( object => {
-        let matchedId = favesIds.filter( id => id === object.id )
-        if ( matchedId.length === 1) {
+
+      const mutatedArray = dataArray.map( object => {
+        if (favesIds.includes(object.id)) {
+          return Object.assign(object, { starred: true })
+        } else {
           return object
         }
-      console.log('newArray', newArray);
       })
+
+      return mutatedArray
     } else {
       return dataArray
     }
@@ -228,8 +222,8 @@ class App extends Component {
           }
         })
         .then(results => {
-          this.mutateFavoritedData(results)
-          this.setState({ buttonClicked: 'subjectData', data: results})
+          const mutatedData = this.mutateFavoritedData(results)
+          this.setState({ buttonClicked: 'subjectData', data: mutatedData })
         })
         .catch(error => console.log(error))
       }
