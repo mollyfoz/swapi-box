@@ -13,7 +13,7 @@ describe('Error component', () => {
     expect(wrapper).toBeDefined()
   })
 
-  test('should render open scroll container', () => {
+  test('should render error display', () => {
     expect(wrapper.find('.error-container').length).toEqual(1)
   })
 })
