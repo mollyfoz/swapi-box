@@ -18,6 +18,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "enzyme": "^2.9.1"
+    "enzyme": "^2.9.1",
+    "fetch-mock": "^5.12.2",
+    "react-scripts": "1.0.0"
   }
 }

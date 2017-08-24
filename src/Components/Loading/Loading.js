@@ -8,7 +8,7 @@ const Loading = () => {
       <h3>LOADING...</h3>
       <div className="darth-image"></div>
       <audio className='loading-audio' autoPlay>
-           <source src='http://www.thesoundarchive.com/starwars/swvader02.mp3' autoPlay/>
+          <source src='http://www.thesoundarchive.com/starwars/swvader02.mp3' autoPlay/>
       </audio>
     </div>
   )
