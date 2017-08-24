@@ -2,27 +2,28 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
-  width: 280px;
+  width: 260px;
   height: 300px;
-  background-color: #F1F1F6;
+  background-color: #E9EBE8;
   border: 1.5px solid #B66260;
   border-radius: 3%;
-  margin: 5px;
+  margin: 10px;
   padding: 4px;
   /*overflow: scroll;*/
 }
 
 .card-info {
   text-transform: uppercase;
-  color: #DB7046;
+  color: #882539;
   padding: 5px;
   font-size: 16px;
+  margin-right: 6px;
 }
 
 .subject-info {
   overflow: scroll;
   height: 260px;
-  width: 280px;
+  width: 260px;
   margin: 3px;
   padding-right: 10px;
 }
@@ -55,4 +56,23 @@
 .starred {
   background-color: #A1A23C;
   opacity: 0.7;
+}
+
+@media screen and (max-width: 745px) {
+  .data-card {
+    width: 280px;
+    height: 280px
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .data-card {
+    width: 250px;
+    height: 280px
+  }
+
+  .subject-info {
+    width: 249px;
+    padding-right: 2px;
+  }
 }
