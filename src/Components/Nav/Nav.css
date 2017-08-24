@@ -1,25 +1,25 @@
 .navigation {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
   align-items: flex-end;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   height: 70%;
+  width: 100%;
 }
 
 .all-favorites-btn {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: #3E5E77;
   opacity: 0.9;
   color: white;
   font-size: 16px;
   border: none;
   border-radius: 11px;
+  box-shadow: 3px 1px 1px lightgray;
   height: 30px;
   width: 120px;
-  box-shadow: 3px 1px 1px lightgray;
   cursor: pointer;
   outline: none;
 }
@@ -36,14 +36,14 @@
 }
 
 .favorites-count {
+  background-color: white;
+  color: #A1A23C;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 3px;
   height: 20px;
   width: 20px;
   padding: 2px 0 0 1px;
-  background-color: white;
-  font-size: 14px;
-  font-weight: bold;
-  color: #A1A23C;
-  border-radius: 3px;
   margin-left: 5px;
 }
 
@@ -60,5 +60,22 @@
 
   .all-favorites-btn:hover {
     width: 151px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .navigation {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 5px;
+  }
+
+  .all-favorites-btn {
+    font-size: 12px;
+    width: 80px;
+  }
+
+  .all-favorites-btn:hover {
+    width: 81px;
   }
 }

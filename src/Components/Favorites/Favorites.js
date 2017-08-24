@@ -4,7 +4,7 @@ import Card from '../Card/Card'
 import './Favorites.css';
 
 const Favorites = ({ favoritesArray, toggleFavorite }) => {
-
+  console.log(favoritesArray)
   const favoritedCards = () => {
     if (favoritesArray.length > 0) {
       return favoritesArray.map(obj => {

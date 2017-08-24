@@ -1,15 +1,15 @@
 .card-container {
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
   flex-direction: row;
-  height: 100vh;
+  flex-wrap: wrap;
+  justify-content: center;
   background-image: url('http://arunnath.com/i/2017/03/space-stars-wallpapers-desktop-background.jpg');
   background-repeat: repeat;
   background-position: center;
   background-size: cover;
-  overflow: scroll;
+  height: 100vh;
   padding-top: 270px;
+  overflow: scroll;
 }
 
 @media screen and (max-width: 1140px) {
