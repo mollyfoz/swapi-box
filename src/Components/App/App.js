@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
+import Error from '../Error/Error';
 import CardContainer from '../CardContainer/CardContainer';
 import OpenScroll from '../OpenScroll/OpenScroll';
 import Favorites from '../Favorites/Favorites';
@@ -197,14 +198,19 @@ class App extends Component {
   getSubjectData(string) {
 
     this.setState({ buttonClicked: 'loading'}, () => {
-      if (string === 'films') {
-        // this.mutateFavoritedData()
-        this.setState({ buttonClicked: 'subjectData', currentSubject: string, data: this.state.filmData })
 
+      if (string === 'films') {
+        this.setState({ buttonClicked: 'subjectData', currentSubject: string, data: this.state.filmData })
       } else {
 
         fetch(`https://swapi.co/api/${string}/`)
-        .then(response => response.json())
+        .then(response => {
+          if (response.status >= 400) {
+            this.setState({ buttonClicked: 'error' })
+          } else {
+            return response.json()
+          }
+        })
         .then(parsedResponse => {
           if (string === 'people') {
             return this.fetchHomeworld(parsedResponse.results)
@@ -242,6 +248,12 @@ class App extends Component {
       }
     }
 
+    const renderError = () => {
+      if (buttonClicked === 'error') {
+        return <Error />
+      }
+    }
+
     const renderLoading = () => {
       if (buttonClicked === 'loading') {
         return <Loading />
@@ -271,6 +283,7 @@ class App extends Component {
         { renderSubjectData() }
         { renderOpenScroll() }
         { renderLoading() }
+        { renderError() }
         { renderFavorites() }
       </div>
     );
