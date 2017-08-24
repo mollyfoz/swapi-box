@@ -16,4 +16,8 @@ describe('Load component', () => {
   test('should render loading container', () => {
     expect(wrapper.find('.loading-container').length).toEqual(1)
   })
+
+  test('should render loading text', () => {
+    expect(wrapper.find('h3').text()).toEqual('LOADING...')
+  })
 })
