@@ -28,7 +28,7 @@ const Favorites = ({ favoritesArray, toggleFavorite }) => {
 
 Favorites.propTypes = {
   favoritesArray: PropTypes.array,
-  toggleFavorite: PropTypes.func
+  toggleFavorite: PropTypes.func,
 }
 
 export default Favorites;
