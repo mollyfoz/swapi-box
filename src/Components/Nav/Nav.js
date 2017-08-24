@@ -14,11 +14,13 @@ const Nav = ({ getSubjectData, count, displayFavorites, currentSubject }) => {
             />
   })
 
+  const activeFavorites = currentSubject === 'favorites' ? 'all-favorites-btn fave-active' : 'all-favorites-btn'
+
   return (
     <div className='navigation'>
       { mappedBtns }
       <button onClick={ () => displayFavorites() }
-              className='all-favorites-btn'>
+              className={ activeFavorites }>
               favorites
               <span className='favorites-count'>{ count }</span>
       </button>
