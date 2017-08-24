@@ -1,46 +1,45 @@
 .data-card {
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
-  width: 260px;
-  height: 300px;
+  justify-content: flex-start;
   background-color: #E9EBE8;
   border: 1.5px solid #B66260;
   border-radius: 3%;
   margin: 10px;
   padding: 4px;
-  /*overflow: scroll;*/
+  width: 260px;
+  height: 300px;
 }
 
 .card-info {
-  text-transform: uppercase;
   color: #882539;
   font-size: 16px;
   margin-right: 6px;
+  text-transform: uppercase;
 }
 
 .subject-info {
-  overflow: scroll;
-  height: 260px;
-  width: 260px;
   margin: 3px;
   padding-right: 10px;
+  height: 260px;
+  width: 260px;
+  overflow: scroll;
 }
 
 
 .favorite-btn {
+  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
   background-color: #3E5E77;
   opacity: 0.6;
   color: white;
   font-size: 16px;
   border: none;
   border-radius: 11px;
+  box-shadow: 3px 1px 1px black;
   height: 30px;
   width: 80px;
-  box-shadow: 3px 1px 1px black;
   cursor: pointer;
   outline: none;
 }
@@ -59,19 +58,19 @@
 
 @media screen and (max-width: 745px) {
   .data-card {
+    height: 280px;
     width: 280px;
-    height: 280px
   }
 }
 
 @media screen and (max-width: 470px) {
   .data-card {
+    height: 280px;
     width: 250px;
-    height: 280px
   }
 
   .subject-info {
-    width: 249px;
     padding-right: 2px;
+    width: 249px;
   }
 }
