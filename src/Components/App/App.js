@@ -32,29 +32,22 @@ class App extends Component {
     const favesDataItem = this.state.favoritesArray.filter( object => object.id === id)
 
     // if the object exists in both the data and favorites array
-
     if (stateDataItem.length === 1 && favesDataItem.length === 1) {
 
       const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
-
-      // do I need to get the index of the object originally in favesArray for favesIndex const??
-
       const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
       const dataIndex = this.state.data.indexOf(toggledObj)
       this.state.favoritesArray.splice(favesIndex, 1)
       this.state.data.splice(dataIndex, 1, toggledObj)
-
       this.setState({
         favoritesCount: this.state.favoritesArray.length,
         favoritesArray: this.state.favoritesArray,
         data: this.state.data
       })
-
       return
     }
 
     // if the object exists in just the favoritesArray, but not data
-
     if (favesDataItem.length === 1) {
       const toggledObj = Object.assign(favesDataItem[0], { starred: !favesDataItem[0].starred })
 
@@ -68,7 +61,6 @@ class App extends Component {
     }
 
     // if the object exists in just the data array and not favorites, meaning it needs to be added to the favorites array
-
     if (stateDataItem.length === 1) {
       const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
 
@@ -77,7 +69,6 @@ class App extends Component {
         favoritesCount: newFavoritesArray.length,
         favoritesArray: newFavoritesArray,
       })
-
       return
     }
   }
@@ -89,7 +80,7 @@ class App extends Component {
   fetchHomeworld(peopleResults) {
     const peopleArray = peopleResults.map(person => {
       return fetch(person.homeworld)
-        .then(response => response.json())
+        .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
     })
     return Promise.all(peopleArray)
       .then(response => {
@@ -102,7 +93,7 @@ class App extends Component {
   fetchSpecies(updatedPeopleResults) {
     const completePeopleArray = updatedPeopleResults.map(person => {
       return fetch(person.species[0])
-        .then(response => response.json())
+        .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
     })
     return Promise.all(completePeopleArray)
       .then(response => {
@@ -115,7 +106,7 @@ class App extends Component {
   fetchResidents(planetResidentsArray) {
     const planetResidents = planetResidentsArray.map( endpoint => {
       return fetch(endpoint)
-        .then(response => response.json())
+        .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
     })
     return Promise.all(planetResidents)
       .then(response => {
@@ -155,7 +146,7 @@ class App extends Component {
 
   fetchFilms(subject) {
     fetch(`https://swapi.co/api/${subject}/`)
-      .then(response => response.json())
+      .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
       .then(parsedResponse => this.cleanFilmData(parsedResponse))
       .then(filmsArray => this.setState({ filmData: filmsArray }))
       .catch(error => console.log(error))
@@ -188,7 +179,6 @@ class App extends Component {
           return object
         }
       })
-
       return mutatedArray
     } else {
       return dataArray
@@ -196,7 +186,6 @@ class App extends Component {
   }
 
   getSubjectData(string) {
-
     this.setState({ buttonClicked: 'loading'}, () => {
 
       if (string === 'films') {
@@ -204,13 +193,7 @@ class App extends Component {
       } else {
 
         fetch(`https://swapi.co/api/${string}/`)
-        .then(response => {
-          if (response.status >= 400) {
-            this.setState({ buttonClicked: 'error' })
-          } else {
-            return response.json()
-          }
-        })
+        .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
         .then(parsedResponse => {
           if (string === 'people') {
             return this.fetchHomeworld(parsedResponse.results)
@@ -236,41 +219,25 @@ class App extends Component {
     })
   }
 
-  // remember to compare the favoritesArray with the results from line 213 before setting to state.
-
   render() {
 
     const { filmData, buttonClicked, currentSubject, data, favoritesCount, favoritesArray } = this.state
 
-    const renderOpenScroll = () => {
-      if ((filmData.length > 0) && (buttonClicked === 'openScroll' )) {
-        return <OpenScroll filmData={filmData} />
-      }
-    }
+    const renderOpenScroll = ((filmData.length > 0) && (buttonClicked === 'openScroll' )) ? <OpenScroll filmData={filmData} /> : false
 
-    const renderError = () => {
-      if (buttonClicked === 'error') {
-        return <Error />
-      }
-    }
+    const renderError = (buttonClicked === 'error') ? <Error /> : false
 
-    const renderLoading = () => {
-      if (buttonClicked === 'loading') {
-        return <Loading />
-      }
-    }
+    const renderLoading = (buttonClicked === 'loading') ? <Loading /> : false
 
-    const renderFavorites = () => {
-      if (buttonClicked === 'favorites') {
-        return <Favorites favoritesArray={favoritesArray} toggleFavorite={this.toggleFavorite} />
-      }
-    }
+    const renderFavorites = (buttonClicked === 'favorites') ?
+      <Favorites favoritesArray={favoritesArray} toggleFavorite={this.toggleFavorite} />
+      :
+      false
 
-    const renderSubjectData = () => {
-      if (buttonClicked === 'subjectData') {
-        return <CardContainer stateData={data} toggleFavorite={this.toggleFavorite} />
-      }
-    }
+    const renderSubjectData = (buttonClicked === 'subjectData') ?
+      <CardContainer stateData={data} toggleFavorite={this.toggleFavorite} />
+      :
+      false
 
     return (
       <div className="App">
@@ -280,15 +247,14 @@ class App extends Component {
           displayFavorites={this.displayFavorites}
           currentSubject={currentSubject}
         />
-        { renderSubjectData() }
-        { renderOpenScroll() }
-        { renderLoading() }
-        { renderError() }
-        { renderFavorites() }
+        { renderSubjectData }
+        { renderOpenScroll }
+        { renderLoading }
+        { renderError }
+        { renderFavorites }
       </div>
     );
   }
 }
-
 
 export default App;
