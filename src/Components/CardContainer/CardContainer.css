@@ -4,10 +4,16 @@
   flex-wrap: wrap;
   flex-direction: row;
   height: 100%;
-  background-image: url('http://wallpapercave.com/wp/BXc1IXP.jpg');
+  background-image: url('http://arunnath.com/i/2017/03/space-stars-wallpapers-desktop-background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   overflow: scroll;
   padding-top: 270px;
+}
+
+@media screen and (max-width: 1140px) {
+  .card-container {
+    justify-content: space-around;
+  }
 }

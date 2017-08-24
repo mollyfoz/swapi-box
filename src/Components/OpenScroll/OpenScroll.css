@@ -2,7 +2,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
-  background-image: url('http://wallpapercave.com/wp/BXc1IXP.jpg');
+  background-image: url('http://arunnath.com/i/2017/03/space-stars-wallpapers-desktop-background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -11,11 +11,8 @@
 .scroll-container {
   display: flex;
   justify-content: center;
-  /* This is a magic number based on the context in which this snippet is used and effects the perspective */
   height: 1200px;
-  /* This sets allows us to transform the text on a 3D plane, and is somewhat a magic number */
   perspective: 400px;
-  /* The rest is totally up to personal styling preferences */
   color: #feda4a;
   font-family: 'Pathway Gothic One', sans-serif;
   font-size: 500%;
@@ -27,28 +24,20 @@
 }
 
 .inner-container {
-  /* Position the element so we can adjust the top property in the animation */
   position: relative;
-  /* Making sure the text is fully off the screen at the start and end of the animation */
   top: -200px;
-  /* Defines the skew origin at the very center when we apply transforms on the animation */
   transform-origin: 50% 100%;
-
   animation: crawl 60s linear;
   animation-iteration-count:infinite;
 }
 
 @keyframes crawl {
   0% {
-    /* The element starts below the screen */
     top: 0;
-    /* Rotate the text 20 degrees but keep it close to the viewer */
     transform: rotateX(20deg) translateZ(0);
   }
   100% {
-    /* This is a magic number, but using a big one to make sure the text is fully off the screen at the end */
     top: -6000px;
-    /* Slightly increasing the rotation at the end and moving the text far away from the viewer */
     transform: rotateX(25deg) translateZ(-2500px);
   }
 }
