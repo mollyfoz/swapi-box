@@ -9,6 +9,11 @@
   padding: 4px;
   width: 260px;
   height: 300px;
+  transition: transform .5s;
+}
+
+.data-card:hover {
+  transform: scale(1.05); 
 }
 
 .card-info {
