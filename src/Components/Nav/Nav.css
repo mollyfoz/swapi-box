@@ -19,8 +19,9 @@
   border-radius: 11px;
   height: 30px;
   width: 100px;
-  box-shadow: 10px 5px 5px black;
+  box-shadow: 3px 1px 1px black;
   cursor: pointer;
+  outline: none;
 }
 
 .all-favorites-btn:hover {
@@ -31,8 +32,13 @@
 }
 
 .favorites-count {
-  padding-left: 5px;
-  font-size: 16px;
+  height: 20px;
+  width: 20px;
+  padding: 2px 0 0 1px;
+  background-color: white;
+  font-size: 14px;
   font-weight: bold;
   color: #A1A23C;
+  border-radius: 3px;
+  margin-left: 5px;
 }
