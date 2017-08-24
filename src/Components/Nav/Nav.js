@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import Button from '../Button/Button'
 import './Nav.css'
 
-const Nav = ({ getSubjectData, count, displayFavorites }) => {
+const Nav = ({ getSubjectData, count, displayFavorites, currentSubject }) => {
 
   const navBtnsArray = ['films', 'people', 'planets', 'vehicles']
   const mappedBtns = navBtnsArray.map((string, i) => {
     return <Button key={ i }
                    subject={ string }
                    getSubjectData={ getSubjectData }
+                   currentSubject={ currentSubject }
             />
   })
 
@@ -28,7 +29,8 @@ const Nav = ({ getSubjectData, count, displayFavorites }) => {
 Nav.propTypes = {
   getSubjectData: PropTypes.func,
   count: PropTypes.number,
-  displayFavorites: PropTypes.func
+  displayFavorites: PropTypes.func,
+  currentSubject: PropTypes.string,
 }
 
 export default Nav;

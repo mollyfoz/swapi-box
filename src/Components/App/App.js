@@ -13,6 +13,7 @@ class App extends Component {
     this.state = {
       favoritesCount: 0,
       favoritesArray: [],
+      currentSubject: '',
       buttonClicked: 'openScroll',
       filmData: [],
       data: []
@@ -199,7 +200,7 @@ class App extends Component {
     this.setState({ buttonClicked: 'loading'}, () => {
       if (string === 'films') {
         // this.mutateFavoritedData()
-        this.setState({ buttonClicked: 'subjectData', data: this.state.filmData })
+        this.setState({ buttonClicked: 'subjectData', currentSubject: string, data: this.state.filmData })
 
       } else {
 
@@ -223,7 +224,7 @@ class App extends Component {
         })
         .then(results => {
           const mutatedData = this.mutateFavoritedData(results)
-          this.setState({ buttonClicked: 'subjectData', data: mutatedData })
+          this.setState({ buttonClicked: 'subjectData', currentSubject: string, data: mutatedData })
         })
         .catch(error => console.log(error))
       }
@@ -234,7 +235,7 @@ class App extends Component {
 
   render() {
 
-    const { filmData, buttonClicked, data, favoritesCount, favoritesArray } = this.state
+    const { filmData, buttonClicked, currentSubject, data, favoritesCount, favoritesArray } = this.state
 
     const renderOpenScroll = () => {
       if ((filmData.length > 0) && (buttonClicked === 'openScroll' )) {
@@ -266,6 +267,7 @@ class App extends Component {
           getSubjectData={this.getSubjectData}
           count={favoritesCount}
           displayFavorites={this.displayFavorites}
+          currentSubject={currentSubject}
         />
         { renderSubjectData() }
         { renderOpenScroll() }

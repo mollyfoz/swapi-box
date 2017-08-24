@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import './Header.css';
 import Nav from '../Nav/Nav';
 
-const Header = ({ getSubjectData, count, displayFavorites }) => {
+const Header = ({ getSubjectData, count, displayFavorites, currentSubject }) => {
 
   return(
     <header className='app-header'>
@@ -11,6 +11,7 @@ const Header = ({ getSubjectData, count, displayFavorites }) => {
       <Nav getSubjectData={ getSubjectData }
            count={ count }
            displayFavorites={ displayFavorites }
+           currentSubject={ currentSubject }
       />
     </header>
   )
@@ -19,7 +20,8 @@ const Header = ({ getSubjectData, count, displayFavorites }) => {
 Header.propTypes = {
   getSubjectData: PropTypes.func,
   count: PropTypes.number,
-  displayFavorites: PropTypes.func
+  displayFavorites: PropTypes.func,
+  currentSubject: PropTypes.string,
 }
 
 export default Header;
