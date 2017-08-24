@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
 import CardContainer from '../CardContainer/CardContainer';
@@ -83,7 +82,7 @@ class App extends Component {
   }
 
   displayFavorites() {
-    this.setState({ buttonClicked: 'favorites' })
+    this.setState({ buttonClicked: 'favorites', currentSubject: 'favorites' })
   }
 
   fetchHomeworld(peopleResults) {
