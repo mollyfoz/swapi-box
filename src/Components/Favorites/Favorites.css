@@ -1,0 +1,22 @@
+.empty-faves {
+  height: 100vh;
+  width: 100%;
+  background-color: #faa332;
+}
+
+.empty-faves-title {
+  color: #5e9ed5;
+  font-size: 48px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.empty-image {
+  margin: auto;
+  height: 480px;
+  width: 641px;
+  background-image: url('http://www.cncode.org/static/savefiles/avatar/avatar_1267_2016-03-05-011311_5f62651a-e22c-11e5-b4cb-00163e007e95.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}

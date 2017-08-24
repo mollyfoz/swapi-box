@@ -1,13 +1,13 @@
 .card-container {
-  height: 100%;
-  background-color: #ccc;
-  overflow: scroll;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   flex-wrap: wrap;
-}
-
-.container-instruction {
-  text-align: center;
-  font-size: 75px;
+  flex-direction: row;
+  height: 100%;
+  background-image: url('http://wallpapercave.com/wp/BXc1IXP.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: scroll;
+  padding-top: 270px;
 }

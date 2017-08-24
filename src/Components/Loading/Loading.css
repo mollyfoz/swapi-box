@@ -1,0 +1,27 @@
+.loading-container {
+  padding-top: 270px;
+  /*height: 100%;*/
+  width: 100%;
+  background: #3c4b52;
+  /*overflow: hidden;*/
+  /*background-image: url('http://wallpapercave.com/wp/BXc1IXP.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;*/
+}
+
+.darth-image {
+  margin: auto;
+  height: 626px;
+  width: 1113px;
+  background-image: url('https://brightcove04pmdo-a.akamaihd.net/3653334524001/3653334524001_5381043941001_5379748916001-vs.jpg?pubId=3653334524001&videoId=5379748916001');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.loading-container h3 {
+  color: #a1a23c;
+  font-size: 48px;
+  font-weight: bold;
+}

@@ -1,28 +1,32 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Card from '../Card/Card'
+import PropTypes from 'prop-types'
 import './CardContainer.css';
 
+const CardContainer = ({ stateData, toggleFavorite }) => {
 
-export default class CardContainer extends Component {
-  constructor() {
-    super();
-
+  const subjectCards = () => {
+    if (stateData.length > 0) {
+      return stateData.map(obj => {
+        return <Card
+                  key={obj.id}
+                  subjectDataObj={obj}
+                  toggleFavorite={toggleFavorite}
+                />
+      })
+    }
   }
 
-  render() {
-
-    return (
-      <div className='card-container'>
-        <h3 className='container-instruction'>Select something</h3>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </div>
-    )
-  }
+  return (
+    <div className='card-container'>
+      { subjectCards() }
+    </div>
+  )
 }
+
+CardContainer.propTypes = {
+  stateData: PropTypes.array,
+  toggleFavorite: PropTypes.func
+}
+
+export default CardContainer

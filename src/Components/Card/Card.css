@@ -1,8 +1,58 @@
 .data-card {
-  width: 224px;
-  border: .5px solid black;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 280px;
+  height: 300px;
+  background-color: #F1F1F6;
+  border: 1.5px solid #B66260;
+  border-radius: 3%;
+  margin: 5px;
+  padding: 4px;
+  /*overflow: scroll;*/
+}
+
+.card-info {
+  text-transform: uppercase;
+  color: #DB7046;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.subject-info {
+  overflow: scroll;
+  height: 260px;
+  width: 280px;
+  margin: 3px;
+  padding-right: 10px;
+}
+
+
+.favorite-btn {
   display: flex;
   justify-content: center;
-  flex-direction: column;
-  margin: 5px;
+  align-items: center;
+  background-color: #3E5E77;
+  opacity: 0.6;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 11px;
+  height: 30px;
+  width: 80px;
+  box-shadow: 3px 1px 1px black;
+  cursor: pointer;
+  outline: none;
+}
+
+.favorite-btn:hover {
+  background-color: #0C1C35;
+  font-weight: bold;
+  height: 31px;
+  width: 81px;
+}
+
+.starred {
+  background-color: #A1A23C;
+  opacity: 0.7;
 }
