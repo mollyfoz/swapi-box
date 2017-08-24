@@ -11,18 +11,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ada9a9;
+  background-color: #3E5E77;
   opacity: 0.9;
   color: white;
   font-size: 16px;
-  border: .5px solid white;
+  border: none;
   border-radius: 11px;
-  height: 35px;
-  width: 130px;
+  height: 30px;
+  width: 100px;
   box-shadow: 10px 5px 5px black;
+  cursor: pointer;
+}
+
+.all-favorites-btn:hover {
+  background-color: #0C1C35;
+  font-weight: bold;
+  height: 31px;
+  width: 101px;
 }
 
 .favorites-count {
+  padding-left: 5px;
   font-size: 16px;
-  color: chartreuse;
+  font-weight: bold;
+  color: #A1A23C;
 }
