@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import './Header.css';
-import Nav from '../Nav/Nav';
+import './Header.css'
+import Nav from '../Nav/Nav'
 
 const Header = ({ getSubjectData, count, displayFavorites, currentSubject }) => {
 
