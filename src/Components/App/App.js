@@ -186,28 +186,29 @@ class App extends Component {
   }
 
   getSubjectData(string) {
-    this.setState({ buttonClicked: 'loading'}, () => {
+    this.setState({ buttonClicked: 'loading' }, () => {
 
       if (string === 'films') {
         this.setState({ buttonClicked: 'subjectData', currentSubject: string, data: this.state.filmData })
       } else {
-
         fetch(`https://swapi.co/api/${string}/`)
         .then(response => response.status >= 400 ? this.setState({ buttonClicked: 'error'}) : response.json())
         .then(parsedResponse => {
-          if (string === 'people') {
-            return this.fetchHomeworld(parsedResponse.results)
-          } else if (string === 'planets') {
-            return this.fetchPlanets(parsedResponse.results)
-          } else {
-            return this.fetchVehicles(parsedResponse.results)
-          }
-        })
-        .then(results => {
-          if (string === 'people') {
-            return this.fetchSpecies(results)
-          } else {
-            return results
+          switch (string) {
+            case 'people':
+              debugger;
+              const peopleResults = this.fetchHomeworld(parsedResponse.results)
+              peopleResults.then( peopleResults => this.fetchSpecies(peopleResults) )
+              return peopleResults
+              break
+            case 'planets':
+              return this.fetchPlanets(parsedResponse.results)
+              break
+            case 'vehicles':
+              return this.fetchVehicles(parsedResponse.results)
+              break
+            default:
+              break
           }
         })
         .then(results => {
