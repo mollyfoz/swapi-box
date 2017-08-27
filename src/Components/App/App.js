@@ -196,10 +196,7 @@ class App extends Component {
         .then(parsedResponse => {
           switch (string) {
             case 'people':
-              debugger;
-              const peopleResults = this.fetchHomeworld(parsedResponse.results)
-              peopleResults.then( peopleResults => this.fetchSpecies(peopleResults) )
-              return peopleResults
+              return this.fetchHomeworld(parsedResponse.results)
               break
             case 'planets':
               return this.fetchPlanets(parsedResponse.results)
@@ -208,6 +205,16 @@ class App extends Component {
               return this.fetchVehicles(parsedResponse.results)
               break
             default:
+              break
+          }
+        })
+        .then(results => {
+          switch (string) {
+            case 'people':
+              return this.fetchSpecies(results)
+              break
+            default:
+              return results
               break
           }
         })
