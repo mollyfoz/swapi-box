@@ -27,49 +27,53 @@ class App extends Component {
     this.fetchFilms('films')
   }
 
+  removeStateData(stateDataItem) {
+    const toggledStateObj = Object.assign({}, stateDataItem[0], { starred: false })
+    const dataIndex = this.state.data.indexOf(stateDataItem[0])
+    this.state.data.splice(dataIndex, 1, toggledStateObj)
+  }
+
+  removeFaveData(favesDataItem) {
+    const toggledFavesObj = Object.assign({}, favesDataItem[0], { starred: false })
+    const favesIndex = this.state.favoritesArray.indexOf(favesDataItem[0])
+    this.state.favoritesArray.splice(favesIndex, 1)
+
+    this.setState({
+      favoritesCount: this.state.favoritesArray.length,
+      favoritesArray: this.state.favoritesArray,
+      data: this.state.data
+    })
+  }
+
+  addToFavesArray(stateDataItem) {
+    const toggledStateObj = Object.assign({}, stateDataItem[0], { starred: true })
+    const dataIndex = this.state.data.indexOf(stateDataItem[0])
+    this.state.data.splice(dataIndex, 1, toggledStateObj)
+    const newFavoritesArray = [...this.state.favoritesArray, toggledStateObj]
+    this.setState({
+      favoritesCount: newFavoritesArray.length,
+      favoritesArray: newFavoritesArray,
+      data: this.state.data
+    })
+  }
+
   toggleFavorite(id) {
     const stateDataItem = this.state.data.filter( object => object.id === id )
     const favesDataItem = this.state.favoritesArray.filter( object => object.id === id)
 
-    // if the object exists in both the data and favorites array
-    if (stateDataItem.length === 1 && favesDataItem.length === 1) {
-
-      const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
-      const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
-      const dataIndex = this.state.data.indexOf(toggledObj)
-      this.state.favoritesArray.splice(favesIndex, 1)
-      this.state.data.splice(dataIndex, 1, toggledObj)
-      this.setState({
-        favoritesCount: this.state.favoritesArray.length,
-        favoritesArray: this.state.favoritesArray,
-        data: this.state.data
-      })
-      return
-    }
-
-    // if the object exists in just the favoritesArray, but not data
-    if (favesDataItem.length === 1) {
-      const toggledObj = Object.assign(favesDataItem[0], { starred: !favesDataItem[0].starred })
-
-      const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
-      this.state.favoritesArray.splice(favesIndex, 1)
-
-      this.setState({
-        favoritesCount: this.state.favoritesArray.length,
-        favoritesArray: this.state.favoritesArray,
-      })
-    }
-
-    // if the object exists in just the data array and not favorites, meaning it needs to be added to the favorites array
-    if (stateDataItem.length === 1) {
-      const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
-
-      const newFavoritesArray = [...this.state.favoritesArray, toggledObj]
-      this.setState({
-        favoritesCount: newFavoritesArray.length,
-        favoritesArray: newFavoritesArray,
-      })
-      return
+    switch (true) {
+      case (stateDataItem.length === 1) && (favesDataItem.length === 1):
+        this.removeStateData(stateDataItem)
+        this.removeFaveData(favesDataItem)
+        break
+      case (favesDataItem.length === 1):
+        this.removeFaveData(favesDataItem)
+        break
+      case (stateDataItem.length === 1):
+        this.addToFavesArray(stateDataItem)
+        break
+      default:
+        break
     }
   }
 
