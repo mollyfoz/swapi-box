@@ -34,7 +34,7 @@ class App extends Component {
     // if the object exists in both the data and favorites array
     if (stateDataItem.length === 1 && favesDataItem.length === 1) {
 
-      const toggledObj = Object.assign(stateDataItem[0], { starred: !stateDataItem[0].starred })
+      const toggledObj = Object.assign(stateDataItem[0], { starred: false })
       const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
       const dataIndex = this.state.data.indexOf(toggledObj)
       this.state.favoritesArray.splice(favesIndex, 1)
@@ -49,7 +49,7 @@ class App extends Component {
 
     // if the object exists in just the favoritesArray, but not data
     if (favesDataItem.length === 1) {
-      const toggledObj = Object.assign(favesDataItem[0], { starred: !favesDataItem[0].starred })
+      const toggledObj = Object.assign(favesDataItem[0], { starred: false })
 
       const favesIndex = this.state.favoritesArray.indexOf(toggledObj)
       this.state.favoritesArray.splice(favesIndex, 1)
