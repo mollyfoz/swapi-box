@@ -27,6 +27,7 @@ class App extends Component {
     this.fetchFilms('films')
   }
 
+
   removeStateData(stateDataItem) {
     const toggledStateObj = Object.assign({}, stateDataItem[0], { starred: false })
     const dataIndex = this.state.data.indexOf(stateDataItem[0])
